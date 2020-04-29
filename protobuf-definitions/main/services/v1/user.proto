@@ -6,6 +6,7 @@ import "main/resources/v1/user.proto";
 
 service User {
     // TODO: implement GetUser RPC
+	rpc GetUser(GetUserRequest) returns (GetUserResponse) {}
     rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {}
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
     rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {}
@@ -23,10 +24,12 @@ message ListUsersResponse {
 
 message GetUserRequest {
     // TODO: implement
+	uint64 id = 1;
 }
 
 message GetUserResponse {
     // TODO: implement
+	main.resources.v1.User user = 1;
 }
 
 message CreateUserRequest {

@@ -3,6 +3,13 @@ require 'main/services/v1/user_services_pb'
 class UserService < Main::Services::V1::User::Service
   def get_user(request, call)
     # TODO: implement
+    user = User.find(request.id)
+
+    Main::Services::V1::GetUserResponse.new(
+      user: user.as_protocol_buffer
+    )
+  rescue ActiveRecord::RecordNotFound => e
+    raise GRPC::NotFound.new(e.message)
   end
 
   def list_users(request, call)
