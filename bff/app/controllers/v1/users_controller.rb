@@ -4,6 +4,14 @@ module V1
   class UsersController < ApplicationController
     def show
       # TODO: implement
+      request = Main::Services::V1::GetUserRequest.new(id: params[:id].to_i)
+      begin
+        response = MainGrpcClient.stub(:user).get_user(request)
+      rescue GRPC::NotFound
+        return render status: 404
+      end
+
+      render json: response
     end
 
     def index
